@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Eats Who?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            gap: 20px;
+        }
+        .option {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background-color: #e3e3e3;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        #graphic {
+            margin-top: 30px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Who eats who?</h1>
+    <div class="options">
+        <div id="option1" class="option">Ant eats Wren</div>
+        <div id="option2" class="option">Wren eats Ant</div>
+    </div>
+
+    <img id="graphic" src="ant_eating_bird_animation.gif" alt="Ant eats Wren" width="300">
+
+    <script>
+        const option1 = document.getElementById('option1');
+        const option2 = document.getElementById('option2');
+        const graphic = document.getElementById('graphic');
+
+        // Display graphic when clicking on option 1
+        option1.addEventListener('click', () => {
+            graphic.style.display = 'block';
+        });
+
+        // Function to move the button to a random location
+        function moveButton() {
+            const maxMoveX = Math.max(window.innerWidth - option2.offsetWidth, 0);
+            const maxMoveY = Math.max(window.innerHeight - option2.offsetHeight, 0);
+            const randomX = Math.floor(Math.random() * maxMoveX);
+            const randomY = Math.floor(Math.random() * maxMoveY);
+            option2.style.position = 'absolute';
+            option2.style.left = `${randomX}px`;
+            option2.style.top = `${randomY}px`;
+        }
+
+        // Trigger button movement on hover for desktop
+        option2.addEventListener('mouseover', moveButton);
+
+        // Trigger button movement on touchstart for mobile
+        option2.addEventListener('touchstart', (event) => {
+            event.preventDefault();  // Prevents accidental selection
+            moveButton();
+        });
+    </script>
+
+</body>
+</html>
